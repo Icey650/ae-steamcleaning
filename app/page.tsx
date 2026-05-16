@@ -359,6 +359,13 @@ export default function Home() {
                   alt=""
                 />
               </div>
+              <div className="h-[350px] overflow-hidden rounded-2xl">
+                <img
+                  src="/Carpet_2_wholes_before.jpeg"
+                  className="w-full h-full object-cover"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
 
@@ -380,6 +387,13 @@ export default function Home() {
               <div className="h-[350px] overflow-hidden rounded-2xl">
                 <img
                   src="/Trailer_after.jpeg"
+                  className="w-full h-full object-cover"
+                  alt=""
+                />
+              </div>
+               <div className="h-[350px] overflow-hidden rounded-2xl">
+                <img
+                  src="/Carpet_2_wholes_after.jpeg"
                   className="w-full h-full object-cover"
                   alt=""
                 />

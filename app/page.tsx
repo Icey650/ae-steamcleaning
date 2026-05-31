@@ -80,12 +80,29 @@ steps: [
     desc: "Your space or vehicle feels clean and refreshed.",
   },
 ],
+    serviceAreaTitle: "WE COME TO YOU",
+    serviceAreaSub: "Serving the entire Bay Area",
+    serviceAreaDesc:
+      "Can’t find your city? We still come to you — just reach out.",
+    serviceAreas: [
+      "San Francisco", "San Jose", "Oakland", "Berkeley",
+      "Fremont", "Palo Alto", "Mountain View", "Sunnyvale",
+      "Santa Clara", "Cupertino", "Milpitas", "San Mateo",
+      "Redwood City", "Menlo Park", "Foster City", "Hayward",
+      "Union City", "Newark", "Pleasanton", "Dublin",
+      "Livermore", "Walnut Creek", "Daly City", "South San Francisco",
+    ],
+
     reviewsTitle: "WHAT CLIENTS SAY",
     reviews: [
       "Best detailing service I’ve ever had.",
       "Super convenient and professional.",
       "Car looked brand new.",
     ],
+
+    followTitle: "Follow Us on Facebook",
+    followDesc: "Stay up to date with our latest work, deals, and updates.",
+    followCta: "Follow Us",
   },
 
   es: {
@@ -166,12 +183,29 @@ steps: [
   },
 ],
 
+    serviceAreaTitle: "LLEGAMOS A TI",
+    serviceAreaSub: "Servimos toda el Área de la Bahía",
+    serviceAreaDesc:
+      "¿No ves tu ciudad? Igual llegamos — solo contáctanos.",
+    serviceAreas: [
+      "San Francisco", "San José", "Oakland", "Berkeley",
+      "Fremont", "Palo Alto", "Mountain View", "Sunnyvale",
+      "Santa Clara", "Cupertino", "Milpitas", "San Mateo",
+      "Redwood City", "Menlo Park", "Foster City", "Hayward",
+      "Union City", "Newark", "Pleasanton", "Dublin",
+      "Livermore", "Walnut Creek", "Daly City", "South San Francisco",
+    ],
+
     reviewsTitle: "OPINIONES",
     reviews: [
       "El mejor servicio que he usado.",
       "Muy conveniente.",
       "Mi carro quedó como nuevo.",
     ],
+
+    followTitle: "Síguenos en Facebook",
+    followDesc: "Mantente al tanto de nuestro trabajo, ofertas y novedades.",
+    followCta: "Seguir",
   },
 };
 
@@ -185,6 +219,19 @@ export default function Home() {
       {/* NAV */}
       <nav className="flex justify-between items-center p-6 border-b border-gray-800">
         <h1 className="text-yellow-400 font-bold text-xl">AE SteamPro</h1>
+
+        <div className="flex items-center gap-4">
+          <a
+            href="https://www.facebook.com/profile.php?id=61590681291717"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-yellow-400 transition-colors duration-300"
+            aria-label="Facebook"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
 
         {/* Modern Toggle */}
         <div className="flex bg-gray-800 rounded-xl p-1">
@@ -205,6 +252,7 @@ export default function Home() {
           >
             ES
           </button>
+        </div>
         </div>
       </nav>
 
@@ -485,6 +533,60 @@ export default function Home() {
     </div>
   </div>
 </section>
+      {/* SERVICE AREA */}
+      <section className="relative overflow-hidden px-6 py-24 bg-[#020617]">
+        {/* Background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] bg-yellow-400/5 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+
+          {/* Header */}
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/25 rounded-full px-5 py-2 text-sm text-yellow-300 mb-5">
+              📍 {t.serviceAreaSub}
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white">
+              {t.serviceAreaTitle}
+            </h2>
+            <p className="mt-5 text-gray-400 max-w-xl mx-auto text-lg leading-relaxed">
+              {t.serviceAreaDesc}
+            </p>
+          </div>
+
+          {/* City grid */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {t.serviceAreas.map((city: string, i: number) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 bg-white/5 border border-white/10 hover:border-yellow-400/40 hover:bg-yellow-400/5 transition-all duration-300 px-5 py-2.5 rounded-2xl text-sm font-medium text-gray-200 cursor-default"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
+                {city}
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom callout */}
+          <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6 text-center">
+            <div className="bg-white/5 border border-white/10 rounded-2xl px-8 py-5 flex items-center gap-4">
+              <span className="text-3xl">🗺️</span>
+              <div className="text-left">
+                <p className="text-white font-bold">Full Bay Area Coverage</p>
+                <p className="text-gray-400 text-sm">From SF to the South Bay &amp; East Bay</p>
+              </div>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-2xl px-8 py-5 flex items-center gap-4">
+              <span className="text-3xl">🚐</span>
+              <div className="text-left">
+                <p className="text-white font-bold">We Drive To You</p>
+                <p className="text-gray-400 text-sm">No drop-off needed. Ever.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* REVIEWS */}
       <section className="p-10 text-center">
         <h2 className="text-3xl font-bold mb-6">{t.reviewsTitle}</h2>
@@ -502,6 +604,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FOLLOW US */}
+      <section className="px-6 py-14 text-center">
+        <div className="max-w-lg mx-auto bg-white/5 border border-white/10 rounded-3xl px-8 py-10 flex flex-col items-center gap-4">
+          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-600 text-white shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-white">{t.followTitle}</h2>
+          <p className="text-gray-400 text-sm leading-relaxed">{t.followDesc}</p>
+          <a
+            href="https://www.facebook.com/profile.php?id=61590681291717"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 bg-blue-600 hover:bg-blue-500 transition-colors duration-300 text-white px-8 py-3 rounded-2xl font-bold"
+          >
+            {t.followCta}
+          </a>
+        </div>
+      </section>
+
       {/* FINAL CTA */}
       <section className="p-10 text-center">
         <a
@@ -515,6 +638,19 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="text-center p-6 text-gray-500 border-t border-gray-800">
+        <div className="flex items-center justify-center gap-3 mb-2">
+          <a
+            href="https://www.facebook.com/profile.php?id=61590681291717"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-yellow-400 transition-colors duration-300"
+            aria-label="Facebook"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+        </div>
         © AE SteamPro
       </footer>
     </div>

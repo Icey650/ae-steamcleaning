@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AE SteamPro — Print Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #e5e7eb;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 64px;
+    }
+
+    .print-hint {
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 13px;
+      color: #6b7280;
+      letter-spacing: 0.2px;
+    }
+
+    /* ─────────────────────────────────────────
+       FLYER  (5.5 × 8.5 in)
+    ───────────────────────────────────────── */
+    .flyer {
+      width: 5.5in;
+      min-height: 8.5in;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 52px 44px 40px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    /* top glow */
+    .flyer::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(250,204,21,0.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* bottom glow */
+    .flyer::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 300px;
+      background: radial-gradient(circle, rgba(250,204,21,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .flyer-badge {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(250,204,21,0.1);
+      border: 1px solid rgba(250,204,21,0.28);
+      color: #fde68a;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    .flyer-logo {
+      position: relative;
+      z-index: 1;
+      font-size: 58px;
+      font-weight: 900;
+      color: #facc15;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .flyer-tagline-en {
+      position: relative; z-index: 1;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .flyer-tagline-es {
+      position: relative; z-index: 1;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 28px;
+    }
+
+    .divider {
+      position: relative; z-index: 1;
+      width: 80px; height: 2px;
+      background: linear-gradient(to right, transparent, rgba(250,204,21,0.7), transparent);
+      margin: 0 auto 28px;
+    }
+
+    /* ── Services ── */
+    .services {
+      position: relative; z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 28px;
+    }
+
+    .service-row {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 13px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .service-names { text-align: left; }
+
+    .service-name-en {
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .service-name-es {
+      color: rgba(255,255,255,0.38);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .service-price {
+      color: #facc15;
+      font-weight: 900;
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    /* ── QR Block ── */
+    .qr-block {
+      position: relative; z-index: 1;
+      background: rgba(250,204,21,0.06);
+      border: 1px solid rgba(250,204,21,0.22);
+      border-radius: 20px;
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      width: 100%;
+      margin-bottom: 22px;
+    }
+
+    .qr-block img {
+      width: 110px;
+      height: 110px;
+      border-radius: 10px;
+      background: #fff;
+      padding: 4px;
+      flex-shrink: 0;
+    }
+
+    .qr-copy { text-align: left; }
+
+    .qr-cta-en {
+      color: #fff;
+      font-weight: 800;
+      font-size: 17px;
+      line-height: 1.2;
+    }
+
+    .qr-cta-es {
+      color: rgba(255,255,255,0.45);
+      font-size: 12px;
+      margin-top: 3px;
+      margin-bottom: 10px;
+    }
+
+    .qr-url {
+      color: #facc15;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Contact row ── */
+    .contact-row {
+      position: relative; z-index: 1;
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .contact-chip {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .chip-label {
+      color: rgba(255,255,255,0.35);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .chip-value {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* ── Perks ── */
+    .perks {
+      position: relative; z-index: 1;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .perk {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+    }
+
+    .flyer-footer-text {
+      position: relative; z-index: 1;
+      color: rgba(255,255,255,0.15);
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────
+       BUSINESS CARD  (3.5 × 2 in)
+    ───────────────────────────────────────── */
+    .card-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6b7280;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .business-card {
+      width: 3.5in;
+      height: 2in;
+      background: #000;
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    }
+
+    /* left yellow accent bar */
+    .card-accent {
+      width: 4px;
+      background: linear-gradient(to bottom, #facc15 0%, rgba(250,204,21,0.2) 100%);
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      flex: 1;
+      display: flex;
+      padding: 20px 20px 18px;
+      gap: 14px;
+    }
+
+    .card-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: #facc15;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    .card-taglines {
+      margin-top: 4px;
+    }
+
+    .card-tagline-en {
+      font-size: 8px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    .card-tagline-es {
+      font-size: 7.5px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.4;
+    }
+
+    .card-details {
+      font-size: 8px;
+      color: rgba(255,255,255,0.45);
+      line-height: 2;
+    }
+
+    .card-details strong {
+      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+    }
+
+    .card-qr-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .card-qr-col img {
+      width: 82px;
+      height: 82px;
+      border-radius: 7px;
+      background: #fff;
+      padding: 3px;
+    }
+
+    .card-scan-text {
+      font-size: 6.5px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* glow on card */
+    .card-glow {
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(250,204,21,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────
+       PRINT OVERRIDES
+    ───────────────────────────────────────── */
+    @media print {
+      body { background: white; padding: 0; gap: 0; }
+      .print-hint { display: none; }
+      .card-label { display: none; }
+
+      .flyer {
+        page-break-after: always;
+        border-radius: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      .business-card {
+        page-break-after: always;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="print-hint">Open in browser → Right-click → Print (or Save as PDF) to export</p>
+
+  <!-- ═══════════════ FLYER ═══════════════ -->
+  <div class="flyer">
+    <div class="flyer-badge">⭐ Mobile · Professional · Bay Area</div>
+
+    <div class="flyer-logo">AE SteamPro</div>
+    <div class="flyer-tagline-en">Professional Mobile Steam Cleaning</div>
+    <div class="flyer-tagline-es">Limpieza Profesional a Vapor Móvil</div>
+
+    <div class="divider"></div>
+
+    <div class="services">
+      <div class="service-row">
+        <div class="service-names">
+          <div class="service-name-en">Small Room Carpet Cleaning</div>
+          <div class="service-name-es">Limpieza de Alfombra — Cuarto Pequeño</div>
+        </div>
+        <div class="service-price">$65</div>
+      </div>
+      <div class="service-row">
+        <div class="service-names">
+          <div class="service-name-en">2 Small Rooms Bundle</div>
+          <div class="service-name-es">Paquete 2 Cuartos Pequeños</div>
+        </div>
+        <div class="service-price">$120</div>
+      </div>
+      <div class="service-row">
+        <div class="service-names">
+          <div class="service-name-en">Master / Large Room Carpet Cleaning</div>
+          <div class="service-name-es">Cuarto Grande / Master</div>
+        </div>
+        <div class="service-price">$80</div>
+      </div>
+      <div class="service-row">
+        <div class="service-names">
+          <div class="service-name-en">Sedan Interior Detail + Exterior Wash</div>
+          <div class="service-name-es">Detalle Interior Sedán + Lavado Exterior</div>
+        </div>
+        <div class="service-price">$130</div>
+      </div>
+      <div class="service-row">
+        <div class="service-names">
+          <div class="service-name-en">SUV / Truck Detail + Exterior Wash</div>
+          <div class="service-name-es">Detallado SUV / Camioneta + Lavado Gratis</div>
+        </div>
+        <div class="service-price">$160</div>
+      </div>
+    </div>
+
+    <div class="qr-block">
+      <img src="public/qrcode.png" alt="QR Code — aesteampro.com" />
+      <div class="qr-copy">
+        <div class="qr-cta-en">Scan to Book Instantly</div>
+        <div class="qr-cta-es">Escanea para reservar ahora</div>
+        <div class="qr-url">aesteampro.com</div>
+      </div>
+    </div>
+
+    <div class="contact-row">
+      <div class="contact-chip">
+        <div class="chip-label">WhatsApp</div>
+        <div class="chip-value">(650) 290-4837</div>
+      </div>
+      <div class="contact-chip">
+        <div class="chip-label">Área de Servicio</div>
+        <div class="chip-value">Bay Area, CA</div>
+      </div>
+      <div class="contact-chip">
+        <div class="chip-label">We Come To You</div>
+        <div class="chip-value">Llegamos a Ti</div>
+      </div>
+    </div>
+
+    <div class="perks">
+      <div class="perk">🚐 No Drop-Off Needed</div>
+      <div class="perk">🌱 Eco-Friendly Steam</div>
+      <div class="perk">⭐ Satisfaction Guaranteed</div>
+      <div class="perk">📅 Book Online 24/7</div>
+    </div>
+
+    <div class="flyer-footer-text">Mobile · No Drop-Off · Professional Results</div>
+  </div>
+
+  <!-- ═══════════════ BUSINESS CARD ═══════════════ -->
+  <div>
+    <div class="card-label">Business Card — 3.5 × 2 in</div>
+    <div class="business-card">
+      <div class="card-glow"></div>
+      <div class="card-accent"></div>
+      <div class="card-body">
+        <div class="card-info">
+          <div>
+            <div class="card-logo">AE SteamPro</div>
+            <div class="card-taglines">
+              <div class="card-tagline-en">Professional Mobile Steam Cleaning</div>
+              <div class="card-tagline-es">Limpieza Profesional a Vapor Móvil</div>
+            </div>
+          </div>
+          <div class="card-details">
+            <strong>WhatsApp</strong>&nbsp; (650) 290-4837<br />
+            <strong>Web</strong>&nbsp; aesteampro.com<br />
+            <strong>Area</strong>&nbsp; Bay Area, CA
+          </div>
+        </div>
+        <div class="card-qr-col">
+          <img src="public/qrcode.png" alt="QR" />
+          <div class="card-scan-text">Scan to Book</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
